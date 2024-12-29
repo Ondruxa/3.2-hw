@@ -28,10 +28,6 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
-   /* @GetMapping
-    public ResponseEntity<Collection<Faculty>> getAllFaculties() {
-        return ResponseEntity.ok(facultyService.getAllFaculties());
-    }*/
 
     @GetMapping
     public ResponseEntity<Collection<Faculty>> findFaculties(@RequestParam(required = false) String color) {

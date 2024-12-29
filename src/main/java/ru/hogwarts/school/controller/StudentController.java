@@ -27,10 +27,6 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    /*@GetMapping
-    public ResponseEntity<Collection<Student>> getAllStudent() {
-        return ResponseEntity.ok(studentService.getAllStudent());
-    }*/
 
     @GetMapping
     public ResponseEntity<Collection<Student>> findStudents(@RequestParam(required = false) int age) {

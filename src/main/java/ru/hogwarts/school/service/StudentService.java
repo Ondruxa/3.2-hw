@@ -37,10 +37,6 @@ public class StudentService {
         return students.remove(id);
     }
 
-    public Collection<Student> getAllStudent() {
-        return students.values();
-    }
-
     public Collection<Student> findByAge(int age) {
         ArrayList<Student> result = new ArrayList<>();
         for (Student student : students.values()) {
