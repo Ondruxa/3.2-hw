@@ -13,6 +13,7 @@ public class FacultyService {
 
     @Autowired
     private final FacultyRepository facultyRepository;
+    private StudentService studentService;
 
     public FacultyService(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -37,5 +38,6 @@ public class FacultyService {
     public List<Faculty> findByNameOrColor(String name, String color) {
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
+
 
 }
