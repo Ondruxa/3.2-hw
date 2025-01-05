@@ -30,18 +30,6 @@ public class FacultyController {
         return ResponseEntity.ok(faculty);
     }
 
-//    @GetMapping("getStudentsOfFaculty")
-//    public ResponseEntity<Collection<Student>> getStudentsOfFaculty(@RequestParam(required = false) String name/*,
-//                                                                    @RequestParam(required = false) String namePart*/) {
-//        if (name != null && !name.isBlank()) {
-//            return ResponseEntity.ok(facultyService.findByName(name).getStudents());
-//        }
-//        /*if (namePart != null && !namePart.isBlank()) {
-//            return ResponseEntity.ok(facultyService.findByNamePart(namePart));
-//        }*/
-//        return ResponseEntity.notFound().build();
-//    }
-
     @GetMapping("{id}/student")
     public ResponseEntity<Collection<Student>> getStudentsOfFaculty(@PathVariable Long id) {
         Faculty faculty = facultyService.findFaculty(id);
