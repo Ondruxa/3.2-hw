@@ -1,11 +1,23 @@
 package ru.hogwarts.school.model;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
 public class Student {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int age;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
+    public Student() {
+    }
 
     public Student(Long id, String name, int age) {
         this.id = id;
@@ -33,6 +45,10 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, age);
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
     }
 
     public Long getId() {
