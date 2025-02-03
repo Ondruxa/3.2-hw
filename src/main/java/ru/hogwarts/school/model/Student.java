@@ -10,7 +10,7 @@ public class Student {
     @GeneratedValue
     private Long id;
     private String name;
-    private int age;
+    private Integer age;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "faculty_id")
@@ -21,6 +21,11 @@ public class Student {
 
     public Student(Long id, String name, int age) {
         this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public Student(String name, int age) {
         this.name = name;
         this.age = age;
     }
@@ -61,6 +66,10 @@ public class Student {
 
     public String getName() {
         return name;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public void setName(String name) {
