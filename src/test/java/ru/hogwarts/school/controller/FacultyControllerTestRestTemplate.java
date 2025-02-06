@@ -106,7 +106,7 @@ public class FacultyControllerTestRestTemplate {
         assertEquals(students.get(1).getName(), student2.getName());
         assertEquals(students.get(1).getAge(), student2.getAge());
         assertEquals(students.get(1).getId(), student2.getId());
-
+        studentRepository.deleteAll();
     }
 
     @Test
@@ -120,6 +120,7 @@ public class FacultyControllerTestRestTemplate {
         ResponseEntity<List<Faculty>> response = restTemplate.exchange("/faculty?name=name1&color=color1", HttpMethod.GET, null,
                 new ParameterizedTypeReference<List<Faculty>>() {
                 });
+
 
         List<Faculty> faculties = response.getBody();
         assertThat(faculties).hasSize(2);

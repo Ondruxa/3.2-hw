@@ -76,6 +76,26 @@ public class StudentControllerWebMvcTests {
     }
 
     @Test
+    void shouldFindStudents() throws Exception {
+        Long studentId1 = 1L;
+        Long studentId2 = 2L;
+        Student student1 = new Student("Ivan", 10);
+        Student student2 = new Student("Roman", 10);
+        List<Student> students = new ArrayList<>();
+        students.add(student1);
+        students.add(student2);
+        when(studentService.findByAge(10)).thenReturn(students);
+
+        ResultActions perform = mockMvc.perform(get("/student/studentAge?age=10"));
+
+        perform
+                .andExpect(jsonPath("$[0].name").value(students.get(0).getName()))
+                .andExpect(jsonPath("$[0].age").value(students.get(0).getAge()))
+                .andExpect(jsonPath("$[1].name").value(students.get(1).getName()))
+                .andExpect(jsonPath("$[1].age").value(students.get(1).getAge()));
+    }
+
+    @Test
     void shouldUpdateStudent() throws Exception {
         Long studentId = 1L;
         Student student = new Student("Ivan", 20);
@@ -104,8 +124,6 @@ public class StudentControllerWebMvcTests {
                 .andExpect(status().isOk());
         verify(studentService).deleteStudent(studentId);
     }
-
-
 
 
 }

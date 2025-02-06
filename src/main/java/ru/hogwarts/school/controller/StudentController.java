@@ -40,7 +40,7 @@ public class StudentController {
     public ResponseEntity<Collection<Student>> findByAgeBetween(@RequestParam(required = false) int min,
                                                                 @RequestParam(required = false) int max) {
 
-            return ResponseEntity.ok(studentService.findByAgeBetween(min, max));
+        return ResponseEntity.ok(studentService.findByAgeBetween(min, max));
 
     }
 
