@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.StudentService;
@@ -93,6 +93,45 @@ public class StudentControllerWebMvcTests {
                 .andExpect(jsonPath("$[0].age").value(students.get(0).getAge()))
                 .andExpect(jsonPath("$[1].name").value(students.get(1).getName()))
                 .andExpect(jsonPath("$[1].age").value(students.get(1).getAge()));
+    }
+
+    @Test
+    void shouldFindByAgeBetween() throws Exception {
+        Long studentId1 = 1L;
+        Long studentId2 = 2L;
+        Student student1 = new Student("Ivan", 10);
+        Student student2 = new Student("Roman", 15);
+        List<Student> students = new ArrayList<>();
+        students.add(student1);
+        students.add(student2);
+        when(studentService.findByAgeBetween(9, 16)).thenReturn(students);
+
+        ResultActions perform = mockMvc.perform(get("/student/studentAgeBetween?min=9&max=16"));
+
+        perform
+                .andExpect(jsonPath("$[0].name").value(students.get(0).getName()))
+                .andExpect(jsonPath("$[0].age").value(students.get(0).getAge()))
+                .andExpect(jsonPath("$[1].name").value(students.get(1).getName()))
+                .andExpect(jsonPath("$[1].age").value(students.get(1).getAge()))
+                .andDo(print());
+    }
+
+    @Test
+    void shouldGetFacultyOfStudent() throws Exception {
+        Long studentId = 1L;
+        Student student = new Student("Ivan", 20);
+        Faculty faculty = new Faculty(1L, "testColor", "testName");
+        student.setFaculty(faculty);
+
+        when(studentService.findStudent(studentId)).thenReturn(student);
+
+        ResultActions perform = mockMvc.perform(get("/student/{id}/faculty", studentId));
+
+        perform
+                .andExpect(jsonPath("$.id").value(faculty.getId()))
+                .andExpect(jsonPath("$.name").value(faculty.getName()))
+                .andExpect(jsonPath("$.color").value(faculty.getColor()))
+                .andDo(print());
     }
 
     @Test
