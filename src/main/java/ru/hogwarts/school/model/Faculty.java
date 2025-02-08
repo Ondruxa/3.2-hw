@@ -19,6 +19,10 @@ public class Faculty {
     @JsonIgnore
     private List<Student> students;
 
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
     public List<Student> getStudents() {
         return students;
     }
@@ -82,4 +86,5 @@ public class Faculty {
     public void setColor(String color) {
         this.color = color;
     }
+
 }
