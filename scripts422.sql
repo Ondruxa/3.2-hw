@@ -11,6 +11,9 @@ create table car(
     model varchar,
     brand varchar,
     price integer,
+);
+
+create table car_human(
     car_id integer not null references car(id),
-    owner_id bigint references person(id)
+    owner_id bigint references human(id)
 );
