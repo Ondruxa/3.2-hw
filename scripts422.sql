@@ -14,6 +14,7 @@ create table car(
 );
 
 create table car_human(
+    id integer primary key,
     car_id integer not null references car(id),
-    owner_id bigint references human(id)
+    owner_id bigint not null references human(id)
 );
