@@ -47,5 +47,9 @@ public class FacultyService {
         return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, color);
     }
 
+    public String getLongerNameOfFaculty() {
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName).max(Comparator.comparingInt(String::length)).orElseThrow();
+    }
 
 }

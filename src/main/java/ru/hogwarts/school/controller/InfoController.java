@@ -17,4 +17,9 @@ public class InfoController {
     public String getPort() {
         return "Server run on port: " + infoService.getNewPort();
     }
+
+    @GetMapping("/wholeSum")
+    public Integer getWholeSum() {
+        return infoService.wholeSum();
+    }
 }
