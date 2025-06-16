@@ -48,7 +48,7 @@ public class FacultyService {
     }
 
     public String getLongerNameOfFaculty() {
-        return facultyRepository.findAll().stream()
+        return facultyRepository.findAll().parallelStream()
                 .map(Faculty::getName).max(Comparator.comparingInt(String::length)).orElseThrow();
     }
 

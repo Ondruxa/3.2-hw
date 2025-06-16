@@ -71,13 +71,13 @@ public class StudentService {
     }
 
     public List<Student> getAllStudentsWithNameStartsWithA() {
-        return studentRepository.findAll().stream().filter(s -> s.getName().toUpperCase().
+        return studentRepository.findAll().parallelStream().filter(s -> s.getName().toUpperCase().
                 startsWith("A")).sorted().toList();
     }
 
     public ResponseEntity<Double> getAverageAgeStudents() {
         double listStudents = studentRepository.findAll().
-                stream().mapToDouble(Student::getAge).average().orElseThrow();
+                parallelStream().mapToDouble(Student::getAge).average().orElseThrow();
         return ResponseEntity.ok(listStudents);
     }
 }
