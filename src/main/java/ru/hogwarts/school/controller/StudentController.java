@@ -72,6 +72,15 @@ public class StudentController {
         return lastStudents;
     }
 
+    @GetMapping("/nameWithStartsWithA")
+    public List<Student> getStudentsWithA() {
+        return studentService.getAllStudentsWithNameStartsWithA();
+    }
+
+    @GetMapping("/getAverageAgeOfStudents")
+    public ResponseEntity<Double> getAverageAges() {
+        return studentService.getAverageAgeStudents();
+    }
 
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
@@ -92,4 +101,5 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
+
 }
