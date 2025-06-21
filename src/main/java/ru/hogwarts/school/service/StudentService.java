@@ -80,4 +80,37 @@ public class StudentService {
                 parallelStream().mapToDouble(Student::getAge).average().orElseThrow();
         return ResponseEntity.ok(listStudents);
     }
+
+    public List<String> parallelStudentsNames() {
+        List<String> parallelStudents = studentRepository.findAll()
+                .stream().parallel().limit(6).map(Student::getName)
+                .toList();
+        System.out.println(parallelStudents.get(0) + " " + parallelStudents.get(1));
+        new Thread(() -> System.out.println(parallelStudents.get(2) + " " + parallelStudents.get(3))).start();
+        new Thread(() -> System.out.println(parallelStudents.get(4) + " " + parallelStudents.get(5))).start();
+        return parallelStudents;
+    }
+
+    public static void synchronizedStudent(String name) {
+        synchronized (Student.class) {
+            System.out.println("Студент " + name);
+        }
+    }
+
+    public List<String> printSynchronized() {
+        List<String> synchronizedName = studentRepository.findAll().stream().parallel()
+                .limit(6).map(Student::getName).toList();
+        synchronizedStudent(synchronizedName.get(0));
+        synchronizedStudent(synchronizedName.get(1));
+        new Thread(() -> {
+            synchronizedStudent(synchronizedName.get(2));
+            synchronizedStudent(synchronizedName.get(3));
+        }).start();
+
+        new Thread(() -> {
+            synchronizedStudent(synchronizedName.get(4));
+            synchronizedStudent(synchronizedName.get(5));
+        }).start();
+        return synchronizedName;
+    }
 }
