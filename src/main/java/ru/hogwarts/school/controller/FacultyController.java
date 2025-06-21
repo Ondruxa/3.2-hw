@@ -52,6 +52,11 @@ public class FacultyController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
+    @GetMapping("/getLongerName")
+    public String getLongerName() {
+        return facultyService.getLongerNameOfFaculty();
+    }
+
     @PostMapping
     public Faculty createFaculty(@RequestBody Faculty faculty) {
         return facultyService.createFaculty(faculty);

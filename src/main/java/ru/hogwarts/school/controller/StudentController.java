@@ -72,6 +72,25 @@ public class StudentController {
         return lastStudents;
     }
 
+    @GetMapping("/nameWithStartsWithA")
+    public List<Student> getStudentsWithA() {
+        return studentService.getAllStudentsWithNameStartsWithA();
+    }
+
+    @GetMapping("/getAverageAgeOfStudents")
+    public ResponseEntity<Double> getAverageAges() {
+        return studentService.getAverageAgeStudents();
+    }
+
+    @GetMapping("/print-parallel")
+    public List<String> getParallel() {
+        return studentService.parallelStudentsNames();
+    }
+
+    @GetMapping("/print-synchronized")
+    public List<String> synchronizedStudents() {
+        return studentService.printSynchronized();
+    }
 
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
@@ -92,4 +111,5 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
+
 }
